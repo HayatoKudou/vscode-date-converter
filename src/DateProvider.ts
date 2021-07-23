@@ -26,23 +26,25 @@ class DateHoverProvider implements vscode.HoverProvider {
         }
 
         if (date !== undefined && format !== '') {
-            msg = this.buildPreviewMessage(date, format);
+            const dateObj = new Date(date);
+            const dateStr = dateObj.toTimeString();
+            const dateLocale = dateObj.toLocaleString("ja");
+            const dateLocaleLanguage = "ja";
+            const dateUnix = dateObj.getTime();
+            const markdown: any = this.markdown(format, dateStr, dateLocale, dateLocaleLanguage, dateUnix);
+            return markdown ? new vscode.Hover(markdown) : undefined;
         }
-
-        return msg ? new vscode.Hover(msg) : undefined;
     }
 
-    buildPreviewMessage(date: any, formatName: string): string {
-        let res = '';
-        if (formatName !== '') {
-            const dateStr = new Date(date);
-            res += this.buildSinglePreviewItem(formatName, dateStr);
-        }
-        return res;
-    }
-
-    buildSinglePreviewItem(name: string, dateString: Date): string {
-        return `\n\n*${name}*  \n${dateString}`;
+    markdown(name: string, dateStr: string, dateLocale: string, dateLocaleLanguage: string, dateUnix: Number) {
+        const markdown = new vscode.MarkdownString(`<span style="color:#fff;background-color:#666;">&nbsp;&nbsp;&nbsp; ${name} &nbsp;&nbsp;&nbsp;</span>`);
+        const codeBlock =
+`LocaleString(${dateLocaleLanguage}): ${dateLocale}
+Date: ${dateStr}
+Unix: ${dateUnix}`;
+        markdown.appendCodeblock(codeBlock, "javascript");
+        markdown.isTrusted = true;
+        return markdown;
     }
 
     dispose() {
