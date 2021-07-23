@@ -1,10 +1,10 @@
 {
 	"name": "date-conversion",
 	"displayName": "Date Conversion",
-	"description": "Translate the date.",
+	"description": "Convert IOS, RFC, unixtime, etc. into readable form.",
 	"icon": "resources/icon.png",
 	"version": "1.0.0",
-	"publisher": "wxt2005",
+	"publisher": "HayatoKudou",
 	"license": "MIT",
 	"engines": {
 		"vscode": "^1.48.0"
