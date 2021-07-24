@@ -12,8 +12,8 @@ Converts the focused IOS, RFC, unixtime, and other date standards to the followi
 ```
 ISO 8601		1973-11-29T21:33:09+00:00
 RFC 2822		Fri, 30 Nov 1973 04:33:09 +0700
-UNIX            120927600
-MySQL		    1973-11-30 04:33:09
+UNIX			120927600
+MySQL			1973-11-30 04:33:09
 DD-MM-YYYY		01-11-1973
 DD/MM/YYYY		01/11/1973
 YYYY-MM-DD		1973-11-01

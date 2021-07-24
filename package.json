@@ -4,8 +4,7 @@
 	"description": "Convert IOS, RFC, unixtime, etc. into readable form.",
 	"icon": "resources/icon.png",
 	"version": "1.0.0",
-	"publisher": "HayatoKudou",
-	"license": "MIT",
+	"publisher": "CatTherapy",
 	"engines": {
 		"vscode": "^1.48.0"
 	},
@@ -21,31 +20,20 @@
 	],
 	"main": "/out/extension.js",
 	"scripts": {
+		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
-		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"test": "node ./out/test/runTest.js",
-		"vscode:prepublish": "webpack --mode production",
-		"webpack": "webpack --mode development",
-		"webpack-dev": "webpack --mode development --watch",
-		"test-compile": "tsc -p ./"
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.0",
-		"@types/node": "^14.0.27",
-		"@types/vscode": "^1.48.0",
-		"@typescript-eslint/eslint-plugin": "^3.8.0",
-		"@typescript-eslint/parser": "^3.8.0",
-		"eslint": "^7.6.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.0.1",
-		"ts-loader": "^8.0.11",
-		"typescript": "^3.8.3",
-		"vscode-test": "^1.4.0",
-		"webpack": "^5.9.0",
-		"webpack-cli": "^4.2.0"
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28",
+		"tslint": "^5.12.1",
+		"@types/node": "^10.12.21",
+		"@types/mocha": "^2.2.42"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"vsce": "^1.96.1"
+	}
 }
