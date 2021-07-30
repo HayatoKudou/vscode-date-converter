@@ -85,7 +85,7 @@ class DateHoverProvider implements vscode.HoverProvider {
         if (unixRange) {
             const hoveredWord = document.getText(unixRange);
             format = 'UNIX time';
-            date = Number(hoveredWord);
+            date = Number(hoveredWord) * 1000;
         }
 
         if (date !== undefined && format !== '') {
