@@ -16,7 +16,7 @@ class DateHoverProvider implements vscode.HoverProvider {
         dateHyphen2: /\d{2}-\d{2}-\d{4}/,
         dateSlash1: /\d{4}\/\d{2}\/\d{2}/,
         dateSlash2: /\d{2}\/\d{2}\/\d{4}/,
-        unix: /\d{9,14}/
+        unix: /\d{8,14}/
     };
 
     provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
@@ -85,12 +85,20 @@ class DateHoverProvider implements vscode.HoverProvider {
         if (unixRange) {
             const hoveredWord = document.getText(unixRange);
             format = 'UNIX time';
-            date = Number(hoveredWord) * 1000;
+            if(hoveredWord.length === 9 || hoveredWord.length === 10){
+                date = Number(hoveredWord) * 1000;
+            } else if(hoveredWord.length === 13){
+                date = Number(hoveredWord);
+            } else if(hoveredWord.length === 11){
+                date = Number(hoveredWord) * 100;
+            } else if(hoveredWord.length === 12){
+                date = Number(hoveredWord) * 10;
+            }
         }
 
         if (date !== undefined && format !== '') {
             const dateObj = new Date(date);
-            const dateStr = dateObj.toTimeString();
+            const dateStr = dateObj.toString();
 
             const defaultLocale = this.userLanguage;
             const dateLocale = dateObj.toLocaleString(defaultLocale);
